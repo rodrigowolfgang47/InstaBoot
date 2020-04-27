@@ -17,6 +17,9 @@ class InstaBoot:
         self.__chorme_maximixa = webdriver.Chrome.maximize_window(self.__driver)
 
     def login(self):
+        """ Metodo que acessa os campos de input name e password
+        e enviar os valores de usuario e senha passados em InstaBoot """
+
         driver = self.__driver
         driver.get('https://www.instagram.com/')
         time.sleep(1)
@@ -32,6 +35,10 @@ class InstaBoot:
         time.sleep(3)
 
     def curti_fotos(self, hastg):
+        """ Curtir foto recebe o parametros o nome da hastag acessa a página
+        e coleta os links os links da página, logo em seguida acessa cada um dos links
+        e curte as as botos quando há o botão de like"""
+
         driver = self.__driver
         driver.get(f'https://www.instagram.com/explore/tags/{hastg}/')
         time.sleep(2)
@@ -59,6 +66,9 @@ class InstaBoot:
                 print('deu errado')
 
     def segue_sugeridos(self):
+        """ Segue sugeridos clica no botão ver todos e
+        clica no botão seguir continuamente"""
+        
         driver = self.__driver
         time.sleep(3)
         driver.find_elements_by_xpath("/html/body/div[4]/div/div/div[3]/button[2]")[0].click()
