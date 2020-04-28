@@ -35,14 +35,16 @@ class InstaBoot:
         password_elemente.send_keys(Keys.RETURN)
         time.sleep(3)
 
-    def curti_fotos(self, hastg):
+    def curti_fotos(self, hastag):
         """ Curtir foto recebe o parametros o nome da hastag acessa a página
         e coleta os links os links da página, logo em seguida acessa cada um dos links
-        e curte as as botos quando há o botão de like"""
+        e curte quando há o botão de like"""
 
         driver = self.__driver
-        driver.get(f'https://www.instagram.com/explore/tags/{hastg}/')
+        driver.get(f'https://www.instagram.com/explore/tags/{hastag}/')
         time.sleep(2)
+
+        # Temos que inserir manualmente o número de rolagens com o range
         for i in range(1, 4):
             driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
             time.sleep(3)
@@ -50,7 +52,7 @@ class InstaBoot:
         hrefs = driver.find_elements_by_tag_name('a')
         pic_hrefs = [elem.get_attribute('href') for elem in hrefs]
 
-        print(f' fotos com as {hastg}: {str(len(pic_hrefs))}')
+        print(f' fotos com as {hastag}: {str(len(pic_hrefs))}')
 
         for pic_hrefs in pic_hrefs:
             driver.get(pic_hrefs)
@@ -81,6 +83,41 @@ class InstaBoot:
             driver.find_elements_by_tag_name('button')[index].click()
             print(index)
             time.sleep(10)
+
+    def segue_por_hastag(self, hastag):
+        """ Segue por hastag recebe o parametros o nome da hastag acessa a página
+        e coleta os links os links da página, logo em seguida acessa cada um dos links
+        e segue páginas ou pessoas dos links coletados"""
+
+        driver = self.__driver
+        driver.get(f'https://www.instagram.com/explore/tags/{hastag}/')
+        time.sleep(2)
+
+        #Temos que inserir manualmente o número de rolagens com o range
+        for i in range(1, 1):
+            driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+            time.sleep(3)
+
+        hrefs = driver.find_elements_by_tag_name('a')
+        pic_hrefs = [elem.get_attribute('href') for elem in hrefs]
+
+        print(f' fotos com as {hastag}: {str(len(pic_hrefs))}')
+
+        for pic_hrefs in pic_hrefs:
+            index = 0
+            driver.get(pic_hrefs)
+            time.sleep(5)
+
+            try:
+                driver.find_elements_by_tag_name('button')[0].click()
+                time.sleep(19)
+                print('Deu Certo')
+                index += 1
+
+            except Exception as e:
+                print('Deu errado')
+
+        print(f'Foram seguidas{index} pessoas/páginas')
 
     def status_instaBoot(self):
         print(f'usuario: {self.__user}\n'
