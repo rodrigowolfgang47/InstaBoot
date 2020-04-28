@@ -1,9 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+
+#A blibliotes selenum oferece recursos para darmos comandos ao chromedriver
+# Você precisara instalar o ChromeDriver para que o Selenium envie comandos ao Webdriver
+# Usando a bliblioteca Keys você consegue simular entradras de teclado como "Return" ou "Arrow Left"
 
 
 class InstaBoot:
