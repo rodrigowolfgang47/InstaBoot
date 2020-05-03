@@ -40,6 +40,8 @@ class InstaBoot:
         e coleta os links os links da página, logo em seguida acessa cada um dos links
         e curte quando há o botão de like"""
 
+        # Criar um meto que será usado internamente e protegudo com "__"
+        # O meto se chamará acessa_páginas
         driver = self.__driver
         driver.get(f'https://www.instagram.com/explore/tags/{hastag}/')
         time.sleep(2)
@@ -109,7 +111,8 @@ class InstaBoot:
             time.sleep(5)
 
             try:
-                driver.find_elements_by_tag_name('button')[0].click()
+                acha_botão_seguir = driver.find_elements_by_tag_name('button')[0]
+                acha_botão_seguir.click()
                 time.sleep(19)
                 print('Deu Certo')
                 index += 1
@@ -118,6 +121,23 @@ class InstaBoot:
                 print('Deu errado')
 
         print(f'Foram seguidas{index} pessoas/páginas')
+
+    def segue_followers_de_concorrente(self, nome_do_concorrente):
+        driver = self.__driver
+        driver.get(f'https://www.instagram.com/{nome_do_concorrente}/')
+        time.sleep(2)
+        seguidores = driver.find_element_by_xpath('//li[2]/a')
+        seguidores.click()
+        time.sleep(5)
+
+        for index in range(0, 31):
+            time.sleep(5)
+            #Descobrir porque ele segue de dois em doi e adicionar scroll
+            acha_botao_seguir = driver.find_elements_by_xpath('/html/body/div[4]/div/div[2]//button[contains(text(), "Seguir")]')
+            print(repr(acha_botao_seguir))
+            acha_botao_seguir[index].click()
+            print(index)
+            time.sleep(10)
 
     def status_instaBoot(self):
         print(f'usuario: {self.__user}\n'
