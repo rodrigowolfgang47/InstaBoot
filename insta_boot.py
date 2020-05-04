@@ -139,6 +139,6 @@ class InstaBoot:
             print(index)
             time.sleep(10)
 
-    def status_instaBoot(self):
-        print(f'usuario: {self.__user}\n'
-              f'Senha: {self.__password}')
+    def __str__(self):
+        return f'usuario: {self.__user}\n ' \
+               f'Senha: {self.__password}'
